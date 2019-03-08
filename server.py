@@ -36,6 +36,11 @@ def api_complete(uid):
 	return 'Ok'
 	# return redirect('/')
 
+@route('/error')
+@view('much')
+def too_much():
+	return {}
+
 @route('/add-task', method='POST')
 def add_task():
 	desc = request.POST.description.strip()	# поле POST-запроса description совпадает с именем
@@ -45,6 +50,8 @@ def add_task():
 		t = TodoItem(desc)
 		s.add(t)
 		s.commit()
+	else:
+		redirect('/error')
 	return redirect('/')
 
 run(
